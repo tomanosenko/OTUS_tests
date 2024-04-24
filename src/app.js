@@ -28,6 +28,7 @@
 //  * @example getTotal([{ price: 10, quantity: 10 }], 10) // 90
 //  * @example getTotal([{ price: 10, quantity: 10 }], 100) // 0
 //  */
+
 // export const getTotal = (items = [], discount = 0) => {
 //   if (typeof discount !== 'number') {
 //     throw new Error('Скидка должна быть числом')
@@ -44,11 +45,22 @@
 //   }, 0)
 //   return total - (total * discount) / 100
 
+/**
+ * Функция суммирует баллы студентов
+ * @param {object} scores объект как словарь из студентов, 
+ * где ключ - имя студента в виде строки, а значение - его баллы типа int
+ * @returns {int} целое число - сумма баллов студентов 
+ */
+
   const getScore = (scores)=> {  let sum =  0;
-    for (let name in scores) {    sum += scores[name];
-    };  return sum;
+    for (const name in scores) 
+    {    sum += scores[name];
+    }; 
+    return sum;
   }
-  const Scores = {  Anna: 10,
-    Olga: 1,  Ivan: 5,
+  const Scores = {  
+    Anna: 10,
+    Olga: 1,  
+    Ivan: 5,
     };
   console.log(getScore(Scores));
