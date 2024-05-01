@@ -122,7 +122,7 @@
 // ------------------------------ Тесты с контроллерами ---------------------------------//
 
 import {createUser} from '../framework/services.mjs';
-import {getUser} from '../framework/services.mjs';
+import {getUsers} from '../framework/services.mjs';
 import {LogIn} from '../framework/services.mjs';
 import {DELETE} from '../framework/services.mjs';
  
