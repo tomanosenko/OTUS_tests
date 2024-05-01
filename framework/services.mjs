@@ -41,5 +41,4 @@ export const DELETE = async() => {
     }
 };
 
-const result = await DELETE();
-console.log(result.status);
+
