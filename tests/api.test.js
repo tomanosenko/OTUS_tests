@@ -121,47 +121,44 @@
 
 // ------------------------------ Тесты с контроллерами ---------------------------------//
 
-import {createUser} from '../framework/services.mjs';
-import {getUsers} from '../framework/services.mjs';
-import {LogIn} from '../framework/services.mjs';
-import {DELETE} from '../framework/services.mjs';
- 
-describe ('API тесты с контроллерами для https://petstore.swagger.io/v2', ()=> {
-    describe ('API тесты для post запроса', ()=> {
-    it('Создание пользователя и получение статуса', async()=> {
-    const response =  await createUser();
-    expect(response.status).toBe(200);
-    });
-    it('Создание пользователя и получение данных', async()=>{
-    const response = await createUser();
-    expect(response.data.message).toBe('ok');
-    });
+import { createUser, getUsers, LogIn, DELETE } from '../framework/services.mjs'
 
-    describe ('API тесты для get запроса', ()=> {
-    it("Получение пользователя по логину и возвращение статуса", async()=> {
-    const response = await getUsers();
-    expect(response.status).toBe(200);
-    });
-    it("Получение пользователя по логину и возвращение статуса", async()=> {
-        const response = await getUsers();
-        expect(response.data.id).toBeDefined;
-    });
-   });
-   describe('тесты на авторизацию', ()=> {
-   it('Получается залогиниться', async()=>{
-   const response = await LogIn();
-   expect(response.status).toBe(200);
-   });
-   it('Получается залогиниться точно', async()=>{
-    const response = await LogIn();
-    expect(response.data).toBeDefined;
-    });
-   });
-  describe('тесты для удаления пользователя', ()=> {
-    it('пользователь действительно удаляется', async()=>{
-      const response = await DELETE();
-      expect(response.status).toBe(200);
+describe('API тесты с контроллерами для https://petstore.swagger.io/v2', () => {
+  describe('API тесты для post запроса', () => {
+    it('Создание пользователя и получение статуса', async () => {
+      const response = await createUser()
+      expect(response.status).toBe(200)
+    })
+    it('Создание пользователя и получение данных', async () => {
+      const response = await createUser()
+      expect(response.data.message).toBe('ok')
+    })
+
+    describe('API тесты для get запроса', () => {
+      it('Получение пользователя по логину и возвращение данных', async () => {
+        const response = await getUsers()
+        expect(response.status).toBe(200)
+      })
+      it('Получение пользователя по логину и возвращение статуса', async () => {
+        const response = await getUsers()
+        expect(response.data.id).toBeDefined()
+      })
+    })
+    describe('тесты на авторизацию', () => {
+      it('Получается залогиниться', async () => {
+        const response = await LogIn()
+        expect(response.status).toBe(200)
+      })
+      it('Получается залогиниться точно', async () => {
+        const response = await LogIn()
+        expect(response.data).toBeDefined()
+      })
+    })
+    describe('тесты для удаления пользователя', () => {
+      it('пользователь действительно удаляется', async () => {
+        const response = await DELETE()
+        expect(response.status).toBe(200)
+      })
     })
   })
-  });
-});
+})
