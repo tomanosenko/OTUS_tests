@@ -5,6 +5,13 @@
 
 /** @type {import('jest').Config} */
 const config = {
+  transform: {
+    '^.+\\.mjs$': 'babel-jest',
+    '^.+\\.js$': 'babel-jest',
+  },
+
+  moduleFileExtensions: ['js', 'mjs'],
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 

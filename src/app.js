@@ -47,20 +47,21 @@
 
 /**
  * Функция суммирует баллы студентов
- * @param {object} scores объект как словарь из студентов, 
+ * @param {object} scores объект как словарь из студентов,
  * где ключ - имя студента в виде строки, а значение - его баллы типа int
- * @returns {int} целое число - сумма баллов студентов 
+ * @returns {int} целое число - сумма баллов студентов
  */
 
-  const getScore = (scores)=> {  let sum =  0;
-    for (const name in scores) 
-    {    sum += scores[name];
-    }; 
-    return sum;
+const getScore = scores => {
+  let sum = 0
+  for (const name in scores) {
+    sum += scores[name]
   }
-  const Scores = {  
-    Anna: 10,
-    Olga: 1,  
-    Ivan: 5,
-    };
-  console.log(getScore(Scores));
+  return sum
+}
+const Scores = {
+  Anna: 10,
+  Olga: 1,
+  Ivan: 5,
+}
+console.log(getScore(Scores))
