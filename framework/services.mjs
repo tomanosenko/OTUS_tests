@@ -13,8 +13,8 @@ export const createUser = async () => {
   }
 }
 
-export const getUsers = async () => {
-  const url = `${config.baseUrl}/user/Toma`
+export const getUsers = async (login) => {
+  const url = `${config.baseUrl}/user/${login}`
   const response = await axios.get(url)
   return {
     status: response.status,
@@ -22,8 +22,8 @@ export const getUsers = async () => {
   }
 }
 
-export const LogIn = async () => {
-  const url = `${config.baseUrl}/user/login?=${process.env.TEST_BASE_LOGIN}&password?=${process.env.TEST_BASE_PASSWORD}`
+export const LogIn = async (login, password) => {
+  const url = `${config.baseUrl}/user/login?=${login}&password?=${password}`
   const response = await axios.get(url)
   return {
     status: response.status,
@@ -31,8 +31,8 @@ export const LogIn = async () => {
   }
 }
 
-export const DELETE = async () => {
-  const url = `${config.baseUrl}/user/${process.env.TEST_BASE_LOGIN}`
+export const DELETE = async login => {
+  const url = `${config.baseUrl}/user/${login}`
   const response = await axios.delete(url)
   return {
     status: response.status,

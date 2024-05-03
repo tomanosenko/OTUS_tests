@@ -136,27 +136,27 @@ describe('API тесты с контроллерами для https://petstore.s
 
     describe('API тесты для get запроса', () => {
       it('Получение пользователя по логину и возвращение данных', async () => {
-        const response = await getUsers()
+        const response = await getUsers("Toma")
         expect(response.status).toBe(200)
       })
       it('Получение пользователя по логину и возвращение статуса', async () => {
-        const response = await getUsers()
+        const response = await getUsers("Toma")
         expect(response.data.id).toBeDefined()
       })
     })
     describe('тесты на авторизацию', () => {
       it('Получается залогиниться', async () => {
-        const response = await LogIn()
+        const response = await LogIn('Toma', 'pipipupu')
         expect(response.status).toBe(200)
       })
       it('Получается залогиниться точно', async () => {
-        const response = await LogIn()
+        const response = await LogIn('Toma', 'pipipupu')
         expect(response.data).toBeDefined()
       })
     })
     describe('тесты для удаления пользователя', () => {
       it('пользователь действительно удаляется', async () => {
-        const response = await DELETE()
+        const response = await DELETE('Toma')
         expect(response.status).toBe(200)
       })
     })
