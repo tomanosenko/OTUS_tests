@@ -115,50 +115,50 @@
 //         method: 'DELETE',
 //       })
 //       expect(response.status).toBe(404)
+// //     })
+// //   })
+// // })
+
+// // ------------------------------ Тесты с контроллерами ---------------------------------//
+
+// import { createUser, getUsers, LogIn, DELETE } from '../framework/services.mjs'
+
+// describe('API тесты с контроллерами для https://petstore.swagger.io/v2', () => {
+//   describe('API тесты для post запроса', () => {
+//     it('Создание пользователя и получение статуса', async () => {
+//       const response = await createUser()
+//       expect(response.status).toBe(200)
+//     })
+//     it('Создание пользователя и получение данных', async () => {
+//       const response = await createUser()
+//       expect(response.data.message).toBe('ok')
+//     })
+
+//     describe('API тесты для get запроса', () => {
+//       it('Получение пользователя по логину и возвращение данных', async () => {
+//         const response = await getUsers("Toma")
+//         expect(response.status).toBe(200)
+//       })
+//       it('Получение пользователя по логину и возвращение статуса', async () => {
+//         const response = await getUsers("Toma")
+//         expect(response.data.id).toBeDefined()
+//       })
+//     })
+//     describe('тесты на авторизацию', () => {
+//       it('Получается залогиниться', async () => {
+//         const response = await LogIn('Toma', 'pipipupu')
+//         expect(response.status).toBe(200)
+//       })
+//       it('Получается залогиниться точно', async () => {
+//         const response = await LogIn('Toma', 'pipipupu')
+//         expect(response.data).toBeDefined()
+//       })
+//     })
+//     describe('тесты для удаления пользователя', () => {
+//       it('пользователь действительно удаляется', async () => {
+//         const response = await DELETE('Toma')
+//         expect(response.status).toBe(200)
+//       })
 //     })
 //   })
 // })
-
-// ------------------------------ Тесты с контроллерами ---------------------------------//
-
-import { createUser, getUsers, LogIn, DELETE } from '../framework/services.mjs'
-
-describe('API тесты с контроллерами для https://petstore.swagger.io/v2', () => {
-  describe('API тесты для post запроса', () => {
-    it('Создание пользователя и получение статуса', async () => {
-      const response = await createUser()
-      expect(response.status).toBe(200)
-    })
-    it('Создание пользователя и получение данных', async () => {
-      const response = await createUser()
-      expect(response.data.message).toBe('ok')
-    })
-
-    describe('API тесты для get запроса', () => {
-      it('Получение пользователя по логину и возвращение данных', async () => {
-        const response = await getUsers("Toma")
-        expect(response.status).toBe(200)
-      })
-      it('Получение пользователя по логину и возвращение статуса', async () => {
-        const response = await getUsers("Toma")
-        expect(response.data.id).toBeDefined()
-      })
-    })
-    describe('тесты на авторизацию', () => {
-      it('Получается залогиниться', async () => {
-        const response = await LogIn('Toma', 'pipipupu')
-        expect(response.status).toBe(200)
-      })
-      it('Получается залогиниться точно', async () => {
-        const response = await LogIn('Toma', 'pipipupu')
-        expect(response.data).toBeDefined()
-      })
-    })
-    describe('тесты для удаления пользователя', () => {
-      it('пользователь действительно удаляется', async () => {
-        const response = await DELETE('Toma')
-        expect(response.status).toBe(200)
-      })
-    })
-  })
-})
