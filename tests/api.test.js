@@ -1,5 +1,7 @@
 // Тесты для сайта BookStore
 
+import { config } from '../framework/config.mjs'
+
 import {
   createBook,
   changeBook,
@@ -29,7 +31,7 @@ describe('API тесты с контроллерами и паттернами �
     })
 
     describe('параметризованный тест для получения информации о книге', () => {
-      const isbnList = ['9781449331818', '9781449365035', '9781491950296']
+      const isbnList = [config.isbn[0], config.isbn[1], config.isbn[2]]
       test.each(isbnList)('книгу получается найти', async isbn => {
         const response = await getBook(isbn)
         expect(response.status).toBe(200)
