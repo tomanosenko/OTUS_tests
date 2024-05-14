@@ -1,23 +1,24 @@
 import axios from 'axios'
 import { config } from '../framework/config.mjs'
 
-export const generateToken = async () => {
+export const generateToken = async (usm, pswd) => {
   const url = `${config.baseUrl}/Account/v1/GenerateToken`
   const body = {
-    userName: config.UserName,
-    password: config.basePassword,
+    userName: usm,
+    password: pswd
   }
   const response = await axios.post(url, body)
   return response.data.token
 }
 
-export const createBook = async token => {
+
+export const createBook = async (ID, ISBN, token) => {
   const url = `${config.baseUrl}/BookStore/v1/Books`
   const body = {
-    userId: config.baseid,
+    userId: ID,
     collectionOfIsbns: [
       {
-        isbn: config.isbn[1],
+        isbn: ISBN,
       },
     ],
   }
@@ -31,11 +32,11 @@ export const createBook = async token => {
   }
 }
 
-export const changeBook = async token => {
-  const url = `${config.baseUrl}/BookStore/v1/Books/${config.isbn[1]}`
+export const changeBook = async (isbn1, ID, isbn2, token) => {
+  const url = `${config.baseUrl}/BookStore/v1/Books/${isbn1}`
   const body = {
-    userId: config.baseid,
-    isbn: config.isbn[0],
+    userId: ID,
+    isbn: isbn2,
   }
   const headers = {
     Authorization: `Bearer ${token}`,
@@ -56,11 +57,11 @@ export const getBook = async isbn => {
   }
 }
 
-export const deleteBook = async token => {
+export const deleteBook = async (ISBN, ID, token) => {
   const url = `${config.baseUrl}/BookStore/v1/Book`
   const body = {
-    isbn: config.isbn[0],
-    userId: config.baseid,
+    isbn: ISBN,
+    userId: ID,
   }
   const headers = {
     Authorization: `Bearer ${token}`,
@@ -90,7 +91,7 @@ export const deleteBook = async token => {
 //     console.error('Error:', error);
 //   });
 
-// generateToken()
+// generateToken('Toma', 'i$d#h4c]8ZTa?wf')
 //   .then((result) => {
 //     console.log('status:', result.status);
 //     console.log('data:', result.data);
