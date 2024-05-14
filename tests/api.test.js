@@ -1,164 +1,49 @@
-// // Тесты для Pet Store (хоть это и самая что ни на есть демо версия, мне, как совсем новичку, было удобнее
-// // воспользоваться ею, так как с Book Store было не всё понятно)
-// describe('API тесты для https://petstore.swagger.io/v2', () => {
-//   describe('API тесты для GET запроса', () => {
-//     test('этот запрос должен выполняться со статусом 200', async () => {
-//       const response = await fetch(
-//         'https://petstore.swagger.io/v2/pet/findByStatus?status=sold',
-//       )
-//       expect(response.status).toBe(200)
-//     })
-//     test('этот запрос возвращает json', async () => {
-//       const response = await fetch(
-//         'https://petstore.swagger.io/v2/pet/findByStatus?status=sold',
-//       )
-//       expect(response.json).toBeDefined()
-//     })
-//     // test("этот запрос возвращает json с конкретными полями и их значениями", async () => {
-//     //   const response = await fetch("https://petstore.swagger.io/v2/pet/findByStatus?status=sold");
-//     //   const json = await response.json();
-//     //   expect(json[0].id).toBe(875); //скорее всего на данный момент уже не 875, но на момент прохождения тестов тест проходил успешно
-//     //   expect(json[1]).toHaveProperty("category");
-//     //   expect(json[2]).toHaveProperty("name");
-//     // });
-//   })
-//   describe('API тесты для POST запроса', () => {
-//     test('Этот запрос возвращает статус 200, выдаёт json и учпешно добавляет новое животное', async () => {
-//       const data = {
-//         id: 1556,
-//         category: {
-//           id: 1556,
-//           name: 'frog',
-//         },
-//         name: 'Klava',
-//         photoUrls: ['string'],
-//         tags: [
-//           {
-//             id: 0,
-//             name: 'string',
-//           },
-//         ],
-//         status: 'available',
-//       }
-//       const response = await fetch('https://petstore.swagger.io/v2/pet', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(data),
-//       })
-//       expect(response.status).toBe(200)
-//       expect(response.json).toBeDefined()
-//       const responseData = await response.json()
-//       expect(responseData.id).toBe(1556)
-//     })
-//   })
-//   describe('API тесты для PUT запроса', () => {
-//     test('этот запрос должен выполняться со статусом 200', async () => {
-//       const data = {
-//         id: 1617,
-//         category: {
-//           id: 1617,
-//           name: 'frog',
-//         },
-//         name: 'Klava',
-//         photoUrls: ['string'],
-//         tags: [
-//           {
-//             id: 0,
-//             name: 'string',
-//           },
-//         ],
-//         status: 'available',
-//       }
-//       const response = await fetch('https://petstore.swagger.io/v2/pet', {
-//         method: 'PUT',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(data),
-//       })
-//       expect(response.status).toBe(200)
-//     })
-//     test('этот запрос должен возвращает json', async () => {
-//       const data = {
-//         id: 1617,
-//         category: {
-//           id: 1617,
-//           name: 'frog',
-//         },
-//         name: 'Klava',
-//         photoUrls: ['string'],
-//         tags: [
-//           {
-//             id: 0,
-//             name: 'string',
-//           },
-//         ],
-//         status: 'available',
-//       }
-//       const response = await fetch('https://petstore.swagger.io/v2/pet', {
-//         method: 'PUT',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(data),
-//       })
-//       const responseData = await response.json()
-//       expect(responseData).toBeDefined()
-//       expect(responseData.id).toBe(1617)
-//     })
-//   })
-//   describe('API тесты для DELETE запроса', () => {
-//     test('этот запрос действительно удаляет животное', async () => {
-//       const response = await fetch('https://petstore.swagger.io/v2/pet/1620', {
-//         method: 'DELETE',
-//       })
-//       expect(response.status).toBe(404)
-//     })
-//   })
-// })
+// Тесты для сайта BookStore
 
-// ------------------------------ Тесты с контроллерами ---------------------------------//
+import { config } from '../framework/config.mjs'
 
-import { createUser, getUsers, LogIn, DELETE } from '../framework/services.mjs'
+import {
+  createBook,
+  changeBook,
+  getBook,
+  deleteBook,
+  generateToken,
+} from '../framework/services.mjs'
 
-describe('API тесты с контроллерами для https://petstore.swagger.io/v2', () => {
+describe('API тесты с контроллерами и паттернами для BookStore', () => {
+  let token
+  beforeAll(async () => {
+    token = await generateToken('Toma', 'i$d#h4c]8ZTa?wf')
+  })
   describe('API тесты для post запроса', () => {
-    it('Создание пользователя и получение статуса', async () => {
-      const response = await createUser()
-      expect(response.status).toBe(200)
-    })
-    it('Создание пользователя и получение данных', async () => {
-      const response = await createUser()
-      expect(response.data.message).toBe('ok')
+    it('Создание книги и получение статуса и данных', async () => {
+      const response = await createBook('5f45e6eb-7f4c-482e-88ba-f13f6f56c8ed', config.isbn[1], token)
+      expect(response.status).toBe(201)
+      expect(response.data).toBeDefined()
     })
 
-    describe('API тесты для get запроса', () => {
-      it('Получение пользователя по логину и возвращение данных', async () => {
-        const response = await getUsers("Toma")
+    describe('API тесты для put запроса', () => {
+      it('Изменение книги и получение статуса и данных', async () => {
+        const response = await changeBook( config.isbn[1],  '5f45e6eb-7f4c-482e-88ba-f13f6f56c8ed', config.isbn[0], token)
         expect(response.status).toBe(200)
-      })
-      it('Получение пользователя по логину и возвращение статуса', async () => {
-        const response = await getUsers("Toma")
-        expect(response.data.id).toBeDefined()
-      })
-    })
-    describe('тесты на авторизацию', () => {
-      it('Получается залогиниться', async () => {
-        const response = await LogIn('Toma', 'pipipupu')
-        expect(response.status).toBe(200)
-      })
-      it('Получается залогиниться точно', async () => {
-        const response = await LogIn('Toma', 'pipipupu')
         expect(response.data).toBeDefined()
       })
     })
-    describe('тесты для удаления пользователя', () => {
-      it('пользователь действительно удаляется', async () => {
-        const response = await DELETE('Toma')
+
+    describe('параметризованный тест для получения информации о книге', () => {
+      const isbnList = [config.isbn[0], config.isbn[1], config.isbn[2]]
+      test.each(isbnList)('книгу получается найти', async isbn => {
+        const response = await getBook(isbn)
         expect(response.status).toBe(200)
+        expect(response.data).toBeDefined()
       })
     })
   })
-})
+
+  describe('тесты на delete запроса', () => {
+    it('Всё удаляется', async () => {
+      const response = await deleteBook(config.isbn[0], '5f45e6eb-7f4c-482e-88ba-f13f6f56c8ed', token)
+      expect(response.status).toBe(200)
+    })
+  })
+});
